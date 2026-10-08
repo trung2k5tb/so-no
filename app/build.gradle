@@ -1,0 +1,45 @@
+plugins {
+    id 'com.android.application'
+    id 'com.google.gms.google-services'
+}
+
+android {
+    signingConfigs {
+        release {
+            def storeFilePath = System.getenv('RELEASE_STORE_FILE')
+            if (storeFilePath) {
+                storeFile file(storeFilePath)
+                storePassword System.getenv('RELEASE_STORE_PASSWORD')
+                keyAlias System.getenv('RELEASE_KEY_ALIAS')
+                keyPassword System.getenv('RELEASE_KEY_PASSWORD')
+            }
+        }
+    }
+
+    namespace 'com.sono.app'
+    compileSdk 35
+
+    defaultConfig {
+        applicationId 'com.sono.app'
+        minSdk 23
+        targetSdk 35
+        versionCode 1
+        versionName '1.0.0'
+    }
+
+    buildTypes {
+        release {
+            if (System.getenv('RELEASE_STORE_FILE')) { signingConfig signingConfigs.release }
+            minifyEnabled false
+            shrinkResources false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+
+dependencies {
+    implementation 'com.google.firebase:firebase-messaging:24.1.2'
+    implementation 'androidx.work:work-runtime:2.10.0'
+    implementation 'androidx.core:core:1.15.0'
+}

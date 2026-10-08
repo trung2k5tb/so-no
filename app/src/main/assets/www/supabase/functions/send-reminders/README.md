@@ -1,0 +1,1 @@
+Deploy with Supabase CLI. Set VAPID_PUBLIC_KEY, VAPID_PRIVATE_KEY, VAPID_SUBJECT and SUPABASE_SERVICE_ROLE_KEY as secrets. Schedule the function daily with Supabase Cron.
